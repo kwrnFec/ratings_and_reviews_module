@@ -1,0 +1,11 @@
+.reviewContainer {
+  border: 1px solid black;
+  margin: 50px auto 50px;
+  /* width: 60%; */
+}
+
+.starsPlaceholder {
+  border: 1px solid red;
+  height: 30px;
+  width: 200px;
+}
