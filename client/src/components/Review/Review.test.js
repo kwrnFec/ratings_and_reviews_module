@@ -16,4 +16,14 @@ describe('review component should have 5 children', () => {
     expect(wrapper.find('#stars').exists()).toBe(true);
   })
   
+  test('should have a title element', () => {
+    let wrapper = shallow(<Review />);
+    expect(wrapper.find('#title').exists()).toBe(true);
+  })
+  
+  test('should have a review-body element', () => {
+    let wrapper = shallow(<Review />);
+    expect(wrapper.find('#review-body').exists()).toBe(true);
+  })
+  
 })
