@@ -1,11 +1,28 @@
 .reviewContainer {
-  border: 1px solid black;
-  margin: 50px auto 50px;
-  /* width: 60%; */
+  border-bottom: 1px solid black;
+  margin: 25px auto 0px;
+  padding-bottom: 15px;
+}
+
+.reviewContainer h3 {
+  font-size: 20px;
+}
+
+.reviewContainer p {
+  font-size: 12px;
 }
 
 .starsPlaceholder {
   border: 1px solid red;
-  height: 30px;
-  width: 200px;
+  height: 20px;
+  width: 150px;
+}
+
+span {
+  font-size: 11px;
+}
+
+span a {
+  color: black;
+  text-decoration: underline;
 }
