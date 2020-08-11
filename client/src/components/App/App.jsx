@@ -11,7 +11,7 @@ const App = () => {
   // Api call to get data
   useEffect(() => {
     const getData = async () => {
-      let res = await fetch("http://52.26.193.201:3000/reviews/1/list")
+      let res = await fetch("http://52.26.193.201:3000/reviews/24/list");
       let data = await res.json();
       return data;
     }
@@ -28,7 +28,7 @@ const App = () => {
         <div xs={12} lg={4} className={style.ratingPlaceholder}></div>
       </Col>
       <Col xs={12} lg={8}>
-        {data.length > 0 ? data.map(el => <Review data={ el } key={ el.review_id } data-testid='reviewTestIdentifier' />) : ''}
+        {data.length > 0 ? data.map(el => <Review data={ el } key={ el.review_id } />) : ''}
       </Col>
     </Row>
   </Container>
