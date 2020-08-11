@@ -10,8 +10,10 @@ const App = () => {
   
   // Api call to get data
   useEffect(() => {
+    let param = 24;
+    
     const getData = async () => {
-      let res = await fetch("http://52.26.193.201:3000/reviews/24/list");
+      let res = await fetch(`/reviews/${param}/list`);
       let data = await res.json();
       return data;
     }
