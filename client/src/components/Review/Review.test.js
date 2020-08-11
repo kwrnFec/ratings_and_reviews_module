@@ -1,12 +1,15 @@
 import React from 'react';
+import { render, screen } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import Review from './Review.jsx';
 
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-describe('review component should have 4 children', () => {
-  test('renders a component', () => {
+describe('tests for Review component', () => {
+  
+  test('review component should have 4 children', () => {
     let wrapper = shallow(<Review />);
     expect(wrapper.find('.reviewContainer').children()).toHaveLength(4);
   })
