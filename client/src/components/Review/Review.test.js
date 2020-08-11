@@ -1,6 +1,4 @@
 import React from 'react';
-import { render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import Review from './Review.jsx';
 
 import { configure, shallow } from 'enzyme';

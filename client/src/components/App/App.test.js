@@ -28,27 +28,8 @@ describe('tests for App component', () => {
         .then(( () => {
            expect(screen.getByText("This product was great!")).toBeInTheDocument()
         }))
-        // .then(async () => {
-        //   await expect(screen.getByTestId('reviewTestIdentifier')).toBe(true);
-        // })
     }))
     
   })
   
-  // test(`Should contain a Review component`, async () => {
-  //   // await act(async () => mount(<App />))
-  //   let wrapper = mount(<App />);
-
-  //   expect(wrapper.getByTestId('reviewTestIdentifier')).toBe(true);
-    
-  //   // return ().then(() => {
-  //   //   let wrapper = mount(<App />);
-  //   //   return wrapper;
-  //   // })
-  //   // .then((wrapper) => {
-  //   //   expect(wrapper.find(Review).exists()).toBe(true);
-  //   // })
-  //   // })
-
-  // })
 })
