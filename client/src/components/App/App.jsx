@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import regeneratorRuntime from 'regenerator-runtime';
+import axios from 'axios';
 
 import Review from '../Review/Review.jsx';
 import style from './app.css';
@@ -14,13 +15,12 @@ const App = () => {
     let param = 23;
 
     const getData = async () => {
-      let res = await fetch(`/reviews/${param}/list`);
-      let data = await res.json();
-      return data;
+      axios.get(`/reviews/${param}/list`)
+        .then((response) => {
+          setData(response.data.results)
+        })
     }
-
     getData()
-      .then(data => setData(data.results));
     // [] argument below ensures this only occurs on mount not on update
   }, [])
 
@@ -40,15 +40,25 @@ const App = () => {
     renderReviews();
   }
 
+  const getMoreReviewsButton = () => {
+    if (data.length < 2) {
+      return;
+    } else if (data.length === renderCount || renderCount > data.length) {
+      return;
+    } else if (data.length > 2) {
+      return <Button id='moreReviews' className='mr-3 mt-4' variant='outline-dark' onClick={getMoreReviews}>More Reviews</Button>
+    }
+  }
+
   return (
     <Container>
       <Row>
         <Col xs={12} lg={4}>
           <div className={style.ratingPlaceholder}></div>
         </Col>
-        <Col xs={12} lg={8} className={style.container}>
+        <Col xs={12} lg={8} id='reviewsContainer' className={style.container}>
           {renderReviews()}
-          <Button className='mr-3 mt-4' variant='outline-dark' onClick={getMoreReviews}>More Reviews</Button>
+          {getMoreReviewsButton()}
           <Button className='mt-4' variant='outline-dark'>Add A Review &#43;</Button>
         </Col>
       </Row>
