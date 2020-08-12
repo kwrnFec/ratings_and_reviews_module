@@ -7,8 +7,11 @@
 .reviewContainerTopRow {
   display: flex;
   font-size: 12px;
-  justify-content: space-between;
-  padding-right: 20px;
+}
+
+.nameDate {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .reviewContainer h3 {
@@ -24,6 +27,10 @@
   height: 20px;
   width: 150px;
 }
+
+/* .nameDate {
+  white-space: nowrap;
+} */
 
 .response {
   background-color: rgba(165,165,165, 0.5);
