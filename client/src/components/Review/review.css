@@ -6,8 +6,9 @@
 
 .reviewContainerTopRow {
   display: flex;
-  font-size: 11px;
+  font-size: 12px;
   justify-content: space-between;
+  padding-right: 20px;
 }
 
 .reviewContainer h3 {
@@ -24,7 +25,24 @@
   width: 150px;
 }
 
-span {
+.response {
+  background-color: rgba(165,165,165, 0.5);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.response span:first-child {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.response span:last-child {
+  font-size: 13px;
+}
+
+.helpfulSpan {
   font-size: 11px;
 }
 
