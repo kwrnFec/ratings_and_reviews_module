@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import regeneratorRuntime from 'regenerator-runtime';
 
 import Review from '../Review/Review.jsx';
@@ -7,10 +7,11 @@ import style from './app.css';
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [renderCount, setRenderCount] = useState(2);
 
   // Api call to get data
   useEffect(() => {
-    let param = 24;
+    let param = 23;
 
     const getData = async () => {
       let res = await fetch(`/reviews/${param}/list`);
@@ -23,14 +24,32 @@ const App = () => {
     // [] argument below ensures this only occurs on mount not on update
   }, [])
 
+  const renderReviews = () => {
+    const reviews = [];
+
+    for (let i = 0; i < renderCount; i++) {
+      if (data[i] !== undefined) {
+        reviews.push(<Review data={data[i]} key={data[i].review_id} />)
+      }
+    }
+    return reviews;
+  }
+
+  const getMoreReviews = () => {
+    setRenderCount(renderCount + 2);
+    renderReviews();
+  }
+
   return (
-    <Container className={style.container}>
+    <Container>
       <Row>
         <Col xs={12} lg={4}>
           <div className={style.ratingPlaceholder}></div>
         </Col>
-        <Col xs={12} lg={8}>
-          {data.length > 0 ? data.map(el => <Review data={el} key={el.review_id} />) : ''}
+        <Col xs={12} lg={8} className={style.container}>
+          {renderReviews()}
+          <Button className='mr-3 mt-4' variant='outline-dark' onClick={getMoreReviews}>More Reviews</Button>
+          <Button className='mt-4' variant='outline-dark'>Add A Review &#43;</Button>
         </Col>
       </Row>
     </Container>
