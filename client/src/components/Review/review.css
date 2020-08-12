@@ -7,8 +7,11 @@
 .reviewContainerTopRow {
   display: flex;
   font-size: 12px;
-  justify-content: space-between;
-  padding-right: 20px;
+}
+
+.nameDate {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .reviewContainer h3 {

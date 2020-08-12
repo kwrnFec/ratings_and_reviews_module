@@ -1,39 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import regeneratorRuntime from 'regenerator-runtime';
+import axios from 'axios';
 
 import Review from '../Review/Review.jsx';
 import style from './app.css';
 
 const App = () => {
   const [data, setData] = useState([]);
-  
+  const [renderCount, setRenderCount] = useState(2);
+
   // Api call to get data
   useEffect(() => {
-    let param = 24;
-    
+    let param = 23;
+
     const getData = async () => {
-      let res = await fetch(`/reviews/${param}/list`);
-      let data = await res.json();
-      return data;
+      axios.get(`/reviews/${param}/list`)
+        .then((response) => {
+          setData(response.data.results)
+        })
     }
-    
     getData()
-    .then(data => setData(data.results));
     // [] argument below ensures this only occurs on mount not on update
   }, [])
 
+  const renderReviews = () => {
+    const reviews = [];
+
+    for (let i = 0; i < renderCount; i++) {
+      if (data[i] !== undefined) {
+        reviews.push(<Review data={data[i]} key={data[i].review_id} />)
+      }
+    }
+    return reviews;
+  }
+
+  const getMoreReviews = () => {
+    setRenderCount(renderCount + 2);
+    renderReviews();
+  }
+
+  const getMoreReviewsButton = () => {
+    if (data.length < 2) {
+      return;
+    } else if (data.length === renderCount || renderCount > data.length) {
+      return;
+    } else if (data.length > 2) {
+      return <Button id='moreReviews' className='mr-3 mt-4' variant='outline-dark' onClick={getMoreReviews}>More Reviews</Button>
+    }
+  }
+
   return (
-  <Container className={style.container}>
-    <Row>
-      <Col>
-        <div xs={12} lg={4} className={style.ratingPlaceholder}></div>
-      </Col>
-      <Col xs={12} lg={8}>
-        {data.length > 0 ? data.map(el => <Review data={ el } key={ el.review_id } />) : ''}
-      </Col>
-    </Row>
-  </Container>
+    <Container>
+      <Row>
+        <Col xs={12} lg={4}>
+          <div className={style.ratingPlaceholder}></div>
+        </Col>
+        <Col xs={12} lg={8} id='reviewsContainer' className={style.container}>
+          {renderReviews()}
+          {getMoreReviewsButton()}
+          <Button className='mt-4' variant='outline-dark'>Add A Review &#43;</Button>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
