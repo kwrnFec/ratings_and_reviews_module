@@ -4,6 +4,7 @@ import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
 import Review from '../Review/Review.jsx';
+import Summary from '../Summary/Summary.jsx';
 import style from './app.css';
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
 
   // Api call to get data
   useEffect(() => {
-    let param = 23;
+    let param = 24;
 
     const getData = async () => {
       axios.get(`/reviews/${param}/list`)
@@ -53,8 +54,8 @@ const App = () => {
   return (
     <Container>
       <Row>
-        <Col xs={12} lg={4}>
-          <div className={style.ratingPlaceholder}></div>
+        <Col xs={10}  md={6} lg={4}>
+          <Summary data={data} />
         </Col>
         <Col xs={12} lg={8} id='reviewsContainer' className={style.container}>
           {renderReviews()}

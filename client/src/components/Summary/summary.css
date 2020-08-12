@@ -1,0 +1,45 @@
+.ratingPlaceholder {
+  /* border: 1px solid green; */
+  /* height: 231px; */
+  margin: 25px auto 50px;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.rating {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.starsPlaceholder {
+  border: 1px solid red;
+  height: 20px;
+  width: 150px;
+}
+
+.spanFont {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.flexRatingBarRow {
+  display: flex;
+  align-items: center;
+}
+
+.outerBar {
+  display: flex;
+  background-color: rgba(165,165,165, 0.5);
+  height: 9px;
+  padding: 0px;
+}
+
+.innerBar {
+  background-color: rgba(100,100,100, 1);
+  height: 9px;
+  /* justify-self: start; */
+  width: 50%;
+}
