@@ -28,7 +28,7 @@ const Summary = (props) => {
     // iterate the data array, add up total reviews and total of the matching ratings
     for (let i = 0; i < sortedData.length; i += 1) {
       totalReviews += 1;
-      if (data[i] === ratingNum) {
+      if (sortedData[i] === ratingNum) {
         totalSame += 1;
       }
     }
