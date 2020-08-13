@@ -1,6 +1,4 @@
 .ratingPlaceholder {
-  /* border: 1px solid green; */
-  /* height: 231px; */
   margin: 25px auto 50px;
 }
 
@@ -40,6 +38,4 @@ h2 {
 .innerBar {
   background-color: rgba(100,100,100, 1);
   height: 9px;
-  /* justify-self: start; */
-  width: 50%;
 }

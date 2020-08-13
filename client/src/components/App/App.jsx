@@ -13,7 +13,7 @@ const App = () => {
 
   // Api call to get data
   useEffect(() => {
-    let param = 24;
+    let param = 22;
 
     const getData = async () => {
       axios.get(`/reviews/${param}/list`)
@@ -54,8 +54,8 @@ const App = () => {
   return (
     <Container>
       <Row>
-        <Col xs={10}  md={6} lg={4}>
-          <Summary data={data} />
+        <Col xs={10} md={6} lg={4}>
+          <Summary data={data}/>
         </Col>
         <Col xs={12} lg={8} id='reviewsContainer' className={style.container}>
           {renderReviews()}
