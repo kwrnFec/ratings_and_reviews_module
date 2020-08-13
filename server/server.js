@@ -10,7 +10,12 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/reviews/:product_id/list', (req, res) => {
-  axios.get(`${url}/reviews/${req.params.product_id}/list`)
+  axios.get(`${url}/reviews/${req.params.product_id}/list`, {
+    params: {
+      count: 20,
+      sort: "newest"
+    }
+  })
   .then((response) => {
     res.send(response.data);
   })
