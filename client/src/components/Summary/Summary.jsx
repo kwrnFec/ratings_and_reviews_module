@@ -10,56 +10,45 @@ const Summary = (props) => {
       let totalSame = 0;
       let totalReviews = 0;
       let percent = 0;
-      
+
+      // iterate over data and push each reviews rating to a new array
       if (props.data !== undefined) {
         props.data.forEach(el => {
           data.push(el.rating);
         })
+
+        // sort and reverse the array so the data will line up 
+        // with the order the bars are rendered in
         data = data.sort().reverse();
       }
 
+      // iterate the data array, add up total reviews and total of the matching ratings
       for (let i = 0; i < data.length; i++) {
         totalReviews += 1;
-
         if (data[i] === ratingNum) {
           totalSame += 1;
         }
       }
 
+      // if no reviews of a number exist return 0 
       if (totalSame === 0) {
         return 0;
       }
 
+      // calculate percent, return as a 
       percent = totalSame / totalReviews;
       return percent.toFixed(1) * 100;
     }
   }
 
   const createRatingBars = () => {
-    // let data = [];
     const elements = [];
-    let checkedRatings = [];
     let rating = 0;
-    
-    
-    
-    // if (props.data !== undefined) {
-    //   props.data.forEach(el => {
-    //     data.push(el.rating);
-    //   })
-    //   data = data.sort().reverse();
-    // }
-    
-    // console.log(data);
-    
+
     for (let i = 5; i > 0; i--) {
-      // if (data !== undefined) {
-      //   rating = calculateRatingBars(data[i])
-      // }
-      
+      // calculate percentage to fill rating bar
       rating = calculateRatingBars(i)
-      
-      
+
       elements.push(
         <Row className={style.flexRatingBarRow} key={i}>
           <Col xs={3}>
