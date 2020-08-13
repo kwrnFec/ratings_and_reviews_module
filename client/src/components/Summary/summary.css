@@ -18,24 +18,3 @@ h2 {
   width: 150px;
 }
 
-.spanFont {
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.flexRatingBarRow {
-  display: flex;
-  align-items: center;
-}
-
-.outerBar {
-  display: flex;
-  background-color: rgba(165,165,165, 0.5);
-  height: 9px;
-  padding: 0px;
-}
-
-.innerBar {
-  background-color: rgba(100,100,100, 1);
-  height: 9px;
-}
