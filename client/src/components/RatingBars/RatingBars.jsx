@@ -5,6 +5,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import style from './ratingBars.css';
 import { calculateRatingBars } from '../../helpers/helpers.js';
 
+import CharRating from '../Characteristic/CharRating.jsx';
+
 const RatingBars = (props) => {
   const { data } = props;
 
@@ -34,6 +36,21 @@ const RatingBars = (props) => {
   return (
     <Container id="RatingBarContainer">
       {createRatingBars()}
+      <Row className="mt-5">
+        <span className="ml-3">Size</span>
+      </Row>
+      <CharRating />
+      <Row>
+        <Col>
+          <span className={style.spanFont}>Too small</span>
+        </Col>
+        <Col>
+          <span className={style.spanFont}>Perfect</span>
+        </Col>
+        <Col>
+          <span className={style.spanFont}>Too large</span>
+        </Col>
+      </Row>
     </Container>
   );
 };

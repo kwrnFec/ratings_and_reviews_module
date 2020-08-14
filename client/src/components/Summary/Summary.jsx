@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import style from './summary.css';
 import { averageRating, recommendedPercentage } from '../../helpers/helpers.js';
 
+// COMPONENTS
 import RatingBars from '../RatingBars/RatingBars.jsx';
 
 const Summary = (props) => {

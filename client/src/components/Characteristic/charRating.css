@@ -1,0 +1,14 @@
+.outerBar {
+  height: 9px;
+  padding: 0px;
+}
+
+.innerBar {
+  /* background-color: rgb(132, 182, 99); */
+  background-color: rgba(165,165,165, 0.5);
+  height: 9px;
+}
+
+/* .triangle {
+  background-image: url('../../assets/images/blackTriangle.png');
+} */

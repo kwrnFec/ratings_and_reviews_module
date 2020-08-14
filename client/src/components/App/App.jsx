@@ -17,7 +17,7 @@ const App = () => {
 
   // Api call to get data
   useEffect(() => {
-    const param = 23;
+    const param = 28;
 
     const getData = async () => {
       axios.get(`/reviews/${param}/list`)
