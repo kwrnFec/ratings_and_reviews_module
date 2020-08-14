@@ -13,9 +13,7 @@ const Review = (props) => {
         <Col xs={2} className={style.starsPlaceholder}>Stars</Col>
         <Col xs={{ span: 10 }} className={style.nameDate}>
           <span>
-            {data !== undefined ? data.reviewer_name : ''}
-            ,
-            {data !== undefined ? moment(data.date).format('MMMM Do YYYY') : ''}
+            {`${data !== undefined ? data.reviewer_name : ''}, ${data !== undefined ? moment(data.date).format('MMMM Do YYYY') : ''}`}
           </span>
         </Col>
       </Row>
