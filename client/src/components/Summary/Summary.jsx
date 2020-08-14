@@ -9,6 +9,7 @@ import RatingBars from '../RatingBars/RatingBars.jsx';
 const Summary = (props) => {
   const { data } = props;
   const [avgRating, setAvgRating] = useState('-');
+  const [recommendedPct, setRecommendedPct] = useState(0);
 
   // Calculates average rating
   const averageRating = () => {
@@ -21,10 +22,27 @@ const Summary = (props) => {
     return (total / data.length).toFixed(1);
   };
 
+  // Calculate percentage of users that recommend the product
+  const recommendedPercentage = () => {
+    let totalRecommends = 0;
+    let percent = 0;
+
+    data.forEach((el) => {
+      if (el.recommend === 1) {
+        totalRecommends += 1;
+      }
+    });
+
+    // Calculate percentage
+    percent = Math.floor((totalRecommends / data.length) * 100);
+    return percent;
+  };
+
   // Runs average Rating function to generate number to display
   useEffect(() => {
     if (data.length > 0) {
       setAvgRating(averageRating());
+      setRecommendedPct(recommendedPercentage());
     }
   });
 
@@ -43,7 +61,7 @@ const Summary = (props) => {
       </Row>
       <Row>
         <Col xs={12}>
-          <span className={style.spanFont}>100% of reviews recommend this product</span>
+          <span className={style.spanFont}>{`${recommendedPct}% of reviews recommend this product`}</span>
         </Col>
       </Row>
       <RatingBars data={data} />
