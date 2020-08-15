@@ -36,6 +36,7 @@ const createThumbnails = (data, showState, setShowFn, currentImg, setCurrentImgF
   return results;
 };
 
+// PUT request to server to add a vote to review helpfulness
 const voteHelpful = (id) => {
   axios.put(`/reviews/helpful/${id}`);
 };
