@@ -9,6 +9,13 @@
   height: 9px;
 }
 
-/* .triangle {
-  background-image: url('../../assets/images/blackTriangle.png');
-} */
+.triangle {
+  position: relative;
+  top: 16px;
+  width: 13px;
+}
+
+.wrapControl {
+  display: flex;
+  flex-wrap: nowrap;
+}

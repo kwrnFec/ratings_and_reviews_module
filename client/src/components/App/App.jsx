@@ -13,19 +13,31 @@ import style from './app.css';
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [meta, setMeta] = useState(null);
   const [renderCount, setRenderCount] = useState(2);
 
   // Api call to get data
   useEffect(() => {
-    const param = 28;
+    const param = 22;
 
     const getData = async () => {
+      // Get review data
       axios.get(`/reviews/${param}/list`)
         .then((response) => {
           setData(response.data.results);
         });
     };
+
+    const getMeta = async () => {
+      // Get meta data
+      axios.get(`/reviews/${param}/meta`)
+        .then((response) => {
+          setMeta(response.data.characteristics);
+        });
+    };
+
     getData();
+    getMeta();
     // [] argument below ensures this only occurs on mount not on update
   }, []);
 
@@ -62,7 +74,7 @@ const App = () => {
     <Container>
       <Row>
         <Col xs={10} md={6} lg={4}>
-          <Summary data={data} />
+          <Summary data={data} meta={meta} />
         </Col>
         <Col xs={12} lg={8} id="reviewsContainer" className={style.container}>
           {renderReviews()}

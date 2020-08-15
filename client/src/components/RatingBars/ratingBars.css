@@ -17,5 +17,12 @@
 
 .spanFont {
   font-size: 13px;
+  text-align: center;
   white-space: nowrap;
+}
+
+.spanAdjust {
+  position: relative;
+  right: 15px;
+  top: 15px;
 }
