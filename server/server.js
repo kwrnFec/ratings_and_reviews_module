@@ -36,6 +36,16 @@ app.get('/reviews/:product_id/meta', (req, res) => {
     });
 });
 
+app.put('/reviews/helpful/:review_id', (req, res) => {
+  axios.put(`${url}/reviews/helpful/${req.params.review_id}`)
+    .then(() => {
+      res.send();
+    })
+    .catch((error) => {
+      res.send('Error has occured: ', error);
+    });
+});
+
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`The server is listening on port ${port}`);

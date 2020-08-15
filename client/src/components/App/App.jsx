@@ -39,7 +39,7 @@ const App = () => {
     getData(param, setData);
     getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
-  }, []);
+  }, [data]);
 
   // Creates the list of review tiles to be rendered
   const renderReviews = () => {
