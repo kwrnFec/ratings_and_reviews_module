@@ -34,7 +34,7 @@ const App = () => {
 
   // Api call to get data
   useEffect(() => {
-    const param = 23;
+    const param = 4;
 
     getData(param, setData);
     getMeta(param, setMeta);

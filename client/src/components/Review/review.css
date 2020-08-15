@@ -53,3 +53,9 @@ span a {
   color: black;
   text-decoration: underline;
 }
+
+.thumbnail {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+}

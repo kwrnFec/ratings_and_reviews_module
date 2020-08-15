@@ -1,11 +1,43 @@
-import React from 'react';
+/* eslint-disable object-curly-newline */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image, Modal } from 'react-bootstrap';
 import moment from 'moment';
 import style from './review.css';
 
+const createThumbnails = (data, showState, setShowFn, currentImg, setCurrentImgFn) => {
+  const results = [];
+  const handleClose = () => setShowFn(false);
+  const handleShow = () => setShowFn(true);
+
+  data.photos.forEach((el) => {
+    results.push(
+      <span className="mr-2" key={el.id}>
+        <Image
+          src={el.url}
+          className={style.thumbnail}
+          onClick={() => { handleShow(); setCurrentImgFn(el.url); }}
+          thumbnail
+        />
+
+        <Modal show={showState} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <h2>Photo</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <Image src={currentImg} fluid />
+          </Modal.Body>
+        </Modal>
+      </span>,
+    );
+  });
+  return results;
+};
+
 const Review = (props) => {
   const { data } = props;
+  const [show, setShow] = useState(false);
+  const [currentImage, setCurrentImage] = useState(null);
 
   return (
     <Container id="reviewTile" className={style.reviewContainer}>
@@ -22,6 +54,9 @@ const Review = (props) => {
       </Row>
       <Row>
         <p>{data !== undefined ? data.body : ''}</p>
+      </Row>
+      <Row>
+        {createThumbnails(data, show, setShow, currentImage, setCurrentImage)}
       </Row>
       {(() => {
         if (data !== undefined && data.response !== 'null' && data.response !== null && data.response !== '') {
@@ -54,6 +89,10 @@ Review.propTypes = {
     body: PropTypes.string,
     response: PropTypes.string,
     helpfulness: PropTypes.number,
+    photos: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      url: PropTypes.string,
+    })),
   }),
 };
 
@@ -68,7 +107,7 @@ Review.defaultProps = {
     date: '2020-08-12T00:00:00.000Z',
     reviewer_name: 'My name Jeff',
     helpfulness: 0,
-    photos: [],
+    photos: [{ id: 0, url: 'url' }],
   },
 };
 
