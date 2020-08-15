@@ -11,6 +11,22 @@ import Review from '../Review/Review.jsx';
 import Summary from '../Summary/Summary.jsx';
 import style from './app.css';
 
+const getData = async (param, fn) => {
+  // Get review data
+  axios.get(`/reviews/${param}/list`)
+    .then((response) => {
+      fn(response.data.results);
+    });
+};
+
+const getMeta = async (param, fn) => {
+  // Get meta data
+  axios.get(`/reviews/${param}/meta`)
+    .then((response) => {
+      fn(response.data.characteristics);
+    });
+};
+
 const App = () => {
   const [data, setData] = useState([]);
   const [meta, setMeta] = useState(null);
@@ -18,26 +34,10 @@ const App = () => {
 
   // Api call to get data
   useEffect(() => {
-    const param = 22;
+    const param = 23;
 
-    const getData = async () => {
-      // Get review data
-      axios.get(`/reviews/${param}/list`)
-        .then((response) => {
-          setData(response.data.results);
-        });
-    };
-
-    const getMeta = async () => {
-      // Get meta data
-      axios.get(`/reviews/${param}/meta`)
-        .then((response) => {
-          setMeta(response.data.characteristics);
-        });
-    };
-
-    getData();
-    getMeta();
+    getData(param, setData);
+    getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
   }, []);
 

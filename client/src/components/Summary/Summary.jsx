@@ -7,20 +7,6 @@ import { averageRating, recommendedPercentage } from '../../helpers/helpers.js';
 
 // COMPONENTS
 import RatingBars from '../RatingBars/RatingBars.jsx';
-import CharRating from '../CharRating/CharRating.jsx';
-
-// const generateCharRatings = (data, meta) => {
-//   const features = ['Comfort', 'Fit', 'Length', 'Quality'];
-//   const results = [];
-
-//   if (meta !== null) {
-//     features.forEach((el) => {
-//       console.log(el);
-//       results.push(<CharRating data={data} meta={meta} feature={el} key={el} />);
-//     });
-//   }
-//   return results;
-// };
 
 const Summary = (props) => {
   const { data, meta } = props;
@@ -54,7 +40,6 @@ const Summary = (props) => {
         </Col>
       </Row>
       <RatingBars data={data} meta={meta} />
-      {/* {generateCharRatings(data, meta)} */}
     </Container>
   );
 };

@@ -1,26 +1,18 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import style from './charRating.css';
 import triangle from '../../assets/images/blackTriangle.png';
+import { charRatingCalc } from '../../helpers/helpers.js';
 
 const CharRating = (props) => {
-  const { data, meta, feature } = props;
+  const { meta, feature } = props;
   const [rating, SetRating] = useState(null);
 
-  const charRatingCalc = (meta, feature) => {
-    if (meta !== null && feature !== undefined) {
-      // console.log(feature)
-      let { value } = meta[feature];
-      value = Number(value).toFixed(1);
-      SetRating(value * 20);
-    }
-  };
-
   useEffect(() => {
-    // charRatingCalc(meta, 'Fit');
-    charRatingCalc(meta, feature);
+    charRatingCalc(meta, feature, SetRating);
   }, [meta]);
 
   return (
@@ -38,7 +30,7 @@ const CharRating = (props) => {
 };
 
 CharRating.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  feature: PropTypes.string,
   meta: PropTypes.shape({
     Fit: PropTypes.shape({}),
     Length: PropTypes.shape({}),
@@ -48,7 +40,7 @@ CharRating.propTypes = {
 };
 
 CharRating.defaultProps = {
-  data: [{ body: 'default' }],
+  feature: 'default',
   meta: { body: 'default' },
 };
 

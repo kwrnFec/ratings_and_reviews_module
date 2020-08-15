@@ -61,3 +61,12 @@ export const calculateRatingBars = (ratingNum, data) => {
   percent = totalSame / totalReviews;
   return percent.toFixed(1) * 100;
 };
+
+// Calculates the margin that moves the triangle indicator
+export const charRatingCalc = (metaVal, featureVal, fn) => {
+  if (metaVal !== null && featureVal !== undefined) {
+    let { value } = metaVal[featureVal];
+    value = Number(value).toFixed(1);
+    fn(value * 20);
+  }
+};

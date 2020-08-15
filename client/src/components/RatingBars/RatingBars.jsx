@@ -5,13 +5,20 @@ import { Container, Row, Col } from 'react-bootstrap';
 import style from './ratingBars.css';
 import { calculateRatingBars } from '../../helpers/helpers.js';
 
+// COMPONENTS
 import CharRating from '../CharRating/CharRating.jsx';
 
+// Creates 4 ratingbars for characteristics of product
 const generateCharRatings = (data, meta) => {
-  const features = ['Comfort', 'Fit', 'Length', 'Quality'];
   const results = [];
+  let features;
 
   if (meta !== null) {
+    features = Object.keys(meta);
+  }
+
+  if (meta !== null) {
+    // Creates one bar for each feature
     features.forEach((el) => {
       results.push(
         <Container key={el}>
@@ -37,53 +44,38 @@ const generateCharRatings = (data, meta) => {
   return results;
 };
 
+// Generate 5 rating bars
+const createRatingBars = (data) => {
+  const elements = [];
+  let rating = 0;
+
+  for (let i = 5; i > 0; i -= 1) {
+    // calculate percentage to fill rating bar
+    rating = calculateRatingBars(i, data);
+
+    // Create a rating bar for 1 - 5 stars
+    elements.push(
+      <Row className={style.flexRatingBarRow} id="ratingBar" key={i}>
+        <Col xs={3}>
+          <span className={style.spanFont}>{`${i} Stars`}</span>
+        </Col>
+        <Col xs={8} className={style.outerBar}>
+          <div className={style.innerBar} style={{ width: `${rating}%`, transition: '2s' }} />
+        </Col>
+      </Row>,
+    );
+  }
+  return elements;
+};
+
 const RatingBars = (props) => {
   const { data, meta } = props;
 
-  // Generate 5 rating bars
-  const createRatingBars = () => {
-    const elements = [];
-    let rating = 0;
-
-    for (let i = 5; i > 0; i -= 1) {
-      // calculate percentage to fill rating bar
-      rating = calculateRatingBars(i, data);
-
-      elements.push(
-        <Row className={style.flexRatingBarRow} key={i}>
-          <Col xs={3}>
-            <span className={style.spanFont}>{`${i} Stars`}</span>
-          </Col>
-          <Col xs={8} className={style.outerBar}>
-            <div className={style.innerBar} style={{ width: `${rating}%`, transition: '2s' }} />
-          </Col>
-        </Row>,
-      );
-    }
-    return elements;
-  };
-
   return (
     <Container id="RatingBarContainer">
-      {createRatingBars()}
-      {/* <Row className="mt-5">
-        <span className="ml-3">Size</span>
-      </Row> */}
+      {createRatingBars(data)}
       <Row className="mt-5" />
       {generateCharRatings(data, meta)}
-
-      {/* <CharRating data={data} meta={meta} />
-      <Row>
-        <Col>
-          <span className={style.spanFont}>Too small</span>
-        </Col>
-        <Col>
-          <span className={style.spanFont}>Perfect</span>
-        </Col>
-        <Col>
-          <span className={style.spanFont}>Too large</span>
-        </Col>
-      </Row> */}
     </Container>
   );
 };
