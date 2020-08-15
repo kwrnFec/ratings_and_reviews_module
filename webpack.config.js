@@ -7,7 +7,7 @@ module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
     path: DIST_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -16,8 +16,8 @@ module.exports = {
         include: SRC_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['@babel/preset-react', '@babel/preset-env']
-        }
+          presets: ['@babel/preset-react', '@babel/preset-env'],
+        },
       },
       {
         test: /\.css$/,
@@ -27,11 +27,17 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              modules: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
+    ],
+  },
 };

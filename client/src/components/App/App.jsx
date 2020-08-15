@@ -11,21 +11,33 @@ import Review from '../Review/Review.jsx';
 import Summary from '../Summary/Summary.jsx';
 import style from './app.css';
 
+const getData = async (param, fn) => {
+  // Get review data
+  axios.get(`/reviews/${param}/list`)
+    .then((response) => {
+      fn(response.data.results);
+    });
+};
+
+const getMeta = async (param, fn) => {
+  // Get meta data
+  axios.get(`/reviews/${param}/meta`)
+    .then((response) => {
+      fn(response.data.characteristics);
+    });
+};
+
 const App = () => {
   const [data, setData] = useState([]);
+  const [meta, setMeta] = useState(null);
   const [renderCount, setRenderCount] = useState(2);
 
   // Api call to get data
   useEffect(() => {
     const param = 23;
 
-    const getData = async () => {
-      axios.get(`/reviews/${param}/list`)
-        .then((response) => {
-          setData(response.data.results);
-        });
-    };
-    getData();
+    getData(param, setData);
+    getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
   }, []);
 
@@ -62,7 +74,7 @@ const App = () => {
     <Container>
       <Row>
         <Col xs={10} md={6} lg={4}>
-          <Summary data={data} />
+          <Summary data={data} meta={meta} />
         </Col>
         <Col xs={12} lg={8} id="reviewsContainer" className={style.container}>
           {renderReviews()}

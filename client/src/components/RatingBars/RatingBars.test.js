@@ -11,10 +11,10 @@ import RatingBars from './RatingBars.jsx';
 configure({ adapter: new Adapter() });
 
 describe('tests for RatingBars component', () => {
-  test('should render 5 rating bars', () => {
+  test('should render 10 total rating bars', () => {
     const wrapper = shallow(<RatingBars />);
-    const element = wrapper.find('#RatingBarContainer');
+    const element = wrapper.find('#ratingBar');
 
-    expect(element.children()).toHaveLength(5);
+    expect(element.children()).toHaveLength(10);
   });
 });

@@ -5,10 +5,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import style from './summary.css';
 import { averageRating, recommendedPercentage } from '../../helpers/helpers.js';
 
+// COMPONENTS
 import RatingBars from '../RatingBars/RatingBars.jsx';
 
 const Summary = (props) => {
-  const { data } = props;
+  const { data, meta } = props;
   const [avgRating, setAvgRating] = useState('-');
   const [recommendedPct, setRecommendedPct] = useState(0);
 
@@ -29,7 +30,7 @@ const Summary = (props) => {
       </Row>
       <Row>
         <Col xs={6} lg={5}>
-          <span id="avgRating" className={style.rating}>{ `${avgRating}` }</span>
+          <span id="avgRating" className={style.rating}>{`${avgRating}`}</span>
         </Col>
         <Col xs={5} className={style.starsPlaceholder}>Stars</Col>
       </Row>
@@ -38,18 +39,24 @@ const Summary = (props) => {
           <span id="recommendedPct" className={style.spanFont}>{`${recommendedPct}% of reviews recommend this product`}</span>
         </Col>
       </Row>
-      <RatingBars data={data} />
+      <RatingBars data={data} meta={meta} />
     </Container>
   );
 };
 
 Summary.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
+  meta: PropTypes.shape({
+    Fit: PropTypes.shape({}),
+    Length: PropTypes.shape({}),
+    Comfort: PropTypes.shape({}),
+    Quality: PropTypes.shape({}),
+  }),
 };
 
 Summary.defaultProps = {
   data: [{ body: 'default' }],
+  meta: { body: 'default' },
 };
 
-// module.exports = averageRating;
 export default Summary;
