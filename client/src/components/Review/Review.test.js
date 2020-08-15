@@ -37,11 +37,6 @@ const dummyArray = [
 ];
 
 describe('tests for Review component', () => {
-  test('review component should have 4 children if no response is given', () => {
-    const wrapper = shallow(<Review />);
-    expect(wrapper.find('.reviewContainer').children()).toHaveLength(4);
-  });
-
   test('should have a stars component', () => {
     const wrapper = shallow(<Review />);
     expect(wrapper.find('.starsPlaceholder').exists()).toBe(true);
