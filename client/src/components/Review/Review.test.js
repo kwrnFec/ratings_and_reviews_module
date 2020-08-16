@@ -49,7 +49,11 @@ describe('tests for Review component', () => {
 
   test('should have a review body paragraph', () => {
     const wrapper = shallow(<Review />);
-    expect(wrapper.find('p').exists()).toBe(true);
+    const element = wrapper.find('#reviewBody');
+
+    setTimeout(() => {
+      expect(element.exists()).toBe(true);
+    }, 500);
   });
 
   test('should not render a response if there is not one', () => {

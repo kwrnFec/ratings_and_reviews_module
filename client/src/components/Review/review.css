@@ -61,6 +61,17 @@ span a {
 }
 
 
-.helpLink:hover {
+.helpLink:hover,
+.seeMore:hover {
   text-decoration: underline;
+}
+
+.spanFont {
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.d-inline {
+  display: inline;
 }

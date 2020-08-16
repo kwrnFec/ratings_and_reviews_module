@@ -1,5 +1,5 @@
 /* eslint-disable object-curly-newline */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Image, Modal } from 'react-bootstrap';
 import moment from 'moment';
@@ -41,10 +41,45 @@ const voteHelpful = (id) => {
   axios.put(`/reviews/helpful/${id}`);
 };
 
+// Determine what the review body is based on the length of the review
+const createReviewBody = (data, updateBodyFn) => {
+  let body = '';
+  const result = [];
+
+  // Determines how much of the review body to render based on the length
+  if (data !== undefined) {
+    if (data.body.length > 250) {
+      body = data.body.slice(0, 250);
+      body = body.concat('...');
+    } else {
+      body = body.concat(data.body);
+    }
+
+    result.push(
+      <Container key={`${data.review_id}`}>
+        <Row>
+          <p id="reviewBody" className="mb-1">{body}</p>
+        </Row>
+        <Row>
+          {data.body.length > 250 ? <span className={`${style.seeMore} mb-2`} aria-hidden="true" onClick={() => updateBodyFn(<p id="reviewBody" className="mb-1">{data.body}</p>)}>See more...</span> : null}
+        </Row>
+      </Container>,
+    );
+  }
+  return result;
+};
+
 const Review = (props) => {
   const { data } = props;
   const [show, setShow] = useState(false);
+  const [reviewBody, setReviewBody] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
+  let element;
+
+  useEffect(() => {
+    element = createReviewBody(data, setReviewBody);
+    setReviewBody(element);
+  }, [data.body]);
 
   return (
     <Container id="reviewTile" className={style.reviewContainer}>
@@ -59,9 +94,7 @@ const Review = (props) => {
       <Row>
         <h3>{data !== undefined ? data.summary : ''}</h3>
       </Row>
-      <Row>
-        <p>{data !== undefined ? data.body : ''}</p>
-      </Row>
+      {reviewBody}
       <Row>
         {createThumbnails(data, show, setShow, currentImage, setCurrentImage)}
       </Row>
