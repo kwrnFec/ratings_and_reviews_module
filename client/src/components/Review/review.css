@@ -59,3 +59,8 @@ span a {
   height: 50px;
   object-fit: cover;
 }
+
+
+.helpLink:hover {
+  text-decoration: underline;
+}

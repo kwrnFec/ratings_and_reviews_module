@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Image, Modal } from 'react-bootstrap';
 import moment from 'moment';
+import axios from 'axios';
 import style from './review.css';
 
+// Generate thumbnails and modals for images in reviews
 const createThumbnails = (data, showState, setShowFn, currentImg, setCurrentImgFn) => {
   const results = [];
   const handleClose = () => setShowFn(false);
@@ -32,6 +34,11 @@ const createThumbnails = (data, showState, setShowFn, currentImg, setCurrentImgF
     );
   });
   return results;
+};
+
+// PUT request to server to add a vote to review helpfulness
+const voteHelpful = (id) => {
+  axios.put(`/reviews/helpful/${id}`);
 };
 
 const Review = (props) => {
@@ -73,7 +80,7 @@ const Review = (props) => {
       })()}
       <Row className={style.helpfulSpan}>
         <span className="mr-1">Helpful?</span>
-        <span className="mr-1">{`Yes(${data !== undefined ? data.helpfulness : ''})`}</span>
+        <span className={`${style.helpLink} mr-1`} onClick={() => voteHelpful(data.review_id)} aria-hidden="true">{`Yes(${data !== undefined ? data.helpfulness : ''})`}</span>
         |
         <span className="ml-1">Report</span>
       </Row>
@@ -89,6 +96,7 @@ Review.propTypes = {
     body: PropTypes.string,
     response: PropTypes.string,
     helpfulness: PropTypes.number,
+    review_id: PropTypes.number,
     photos: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       url: PropTypes.string,
