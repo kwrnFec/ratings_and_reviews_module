@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col, Image, Modal } from 'react-bootstrap';
 import moment from 'moment';
 import axios from 'axios';
+import Rating from '@material-ui/lab/Rating';
 import style from './review.css';
 
 // Generate thumbnails and modals for images in reviews
@@ -79,12 +80,12 @@ const Review = (props) => {
   useEffect(() => {
     element = createReviewBody(data, setReviewBody);
     setReviewBody(element);
-  }, [data.body]);
+  }, [data]);
 
   return (
     <Container id="reviewTile" className={style.reviewContainer}>
       <Row className={style.reviewContainerTopRow}>
-        <Col xs={2} className={style.starsPlaceholder}>Stars</Col>
+        <Col xs={2} className={`${style.starsPlaceholder} pl-0`}><Rating name="avg-rating-stars" value={data.rating} precision={0.25} readOnly /></Col>
         <Col xs={{ span: 10 }} className={style.nameDate}>
           <span>
             {`${data !== undefined ? data.reviewer_name : ''}, ${data !== undefined ? moment(data.date).format('MMMM Do YYYY') : ''}`}
@@ -124,6 +125,7 @@ const Review = (props) => {
 Review.propTypes = {
   data: PropTypes.shape({
     reviewer_name: PropTypes.string,
+    rating: PropTypes.number,
     date: PropTypes.string,
     summary: PropTypes.string,
     body: PropTypes.string,

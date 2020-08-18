@@ -22,11 +22,11 @@
   font-size: 12px;
 }
 
-.starsPlaceholder {
+/* .starsPlaceholder {
   border: 1px solid red;
   height: 20px;
   width: 150px;
-}
+} */
 
 .response {
   background-color: rgba(165,165,165, 0.5);
