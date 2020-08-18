@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Container, Row, Col, Button, Modal, Form, InputGroup, ToggleButton } from 'react-bootstrap';
+import Rating from '@material-ui/lab/Rating';
 import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
@@ -43,7 +44,8 @@ const App = () => {
     getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
     // Wacky loop because data passed in, no current work around
-  }, [data]);
+    console.log('effect runs');
+  }, []);
 
   // Creates the list of review tiles to be rendered
   const renderReviews = () => {
@@ -74,17 +76,23 @@ const App = () => {
     return <Button id="moreReviews" className="mr-3 mt-4" variant="outline-dark" onClick={getMoreReviews}>More Reviews</Button>;
   };
 
-  // const createModalFormRadios = () => {
-  //   const result = [];
-  //   for (let i = 1; i <= 5; i += 1) {
-  //     result.push(
-  //       // <InputGroup.Prepend>
-  //         <Form.Check label={`${i}`} value={`${i}`} type='radio' />,
-  //       // </InputGroup.Prepend>,
-  //     );
-  //   }
-  //   return result;
-  // };
+  const createModalFormRadios = () => {
+    const features = meta !== null ? Object.keys(meta) : null;
+    const result = [];
+
+    if (features !== null) {
+      for (let i = 0; i < features.length; i += 1) {
+        result.push(
+          <Row key={`${features[i]}-rating`}>
+            <span className="mr-2">{features !== null ? features[i] : ''}</span>
+            <Rating name={`${features[i]}-star`} onChange={(event) => console.log(event.target.value)} />
+          </Row>,
+        );
+      }
+    }
+    // console.log(features);
+    return result;
+  };
 
   return (
     <Container>
@@ -102,9 +110,10 @@ const App = () => {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <InputGroup>
-                  {/* {createModalFormRadios()} */}
-                </InputGroup>
+                <Container>
+                  {createModalFormRadios()}
+                </Container>
+                <Form.Control as="textarea" rows="3" placeholder="Write a review here..." />
               </Form>
             </Modal.Body>
           </Modal>
