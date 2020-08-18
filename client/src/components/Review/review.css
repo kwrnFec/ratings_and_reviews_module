@@ -22,11 +22,11 @@
   font-size: 12px;
 }
 
-.starsPlaceholder {
+/* .starsPlaceholder {
   border: 1px solid red;
   height: 20px;
   width: 150px;
-}
+} */
 
 .response {
   background-color: rgba(165,165,165, 0.5);
@@ -61,6 +61,17 @@ span a {
 }
 
 
-.helpLink:hover {
+.helpLink:hover,
+.seeMore:hover {
   text-decoration: underline;
+}
+
+.spanFont {
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.d-inline {
+  display: inline;
 }
