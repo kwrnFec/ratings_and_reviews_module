@@ -37,11 +37,6 @@ const createThumbnails = (data, showState, setShowFn, currentImg, setCurrentImgF
   return results;
 };
 
-// PUT request to server to add a vote to review helpfulness
-const voteHelpful = (id) => {
-  axios.put(`/reviews/helpful/${id}`);
-};
-
 // Determine what the review body is based on the length of the review
 const createReviewBody = (data, updateBodyFn) => {
   let body = '';
@@ -71,7 +66,7 @@ const createReviewBody = (data, updateBodyFn) => {
 };
 
 const Review = (props) => {
-  const { data } = props;
+  const { data, setData, param, getData } = props;
   const [show, setShow] = useState(false);
   const [reviewBody, setReviewBody] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
@@ -81,6 +76,13 @@ const Review = (props) => {
     element = createReviewBody(data, setReviewBody);
     setReviewBody(element);
   }, [data]);
+
+  const voteAndUpdate = (id) => {
+    axios.put(`/reviews/helpful/${id}`)
+      .then(() => {
+        getData(param, setData);
+      });
+  };
 
   return (
     <Container id="reviewTile" className={style.reviewContainer}>
@@ -114,7 +116,7 @@ const Review = (props) => {
       })()}
       <Row className={style.helpfulSpan}>
         <span className="mr-1">Helpful?</span>
-        <span className={`${style.helpLink} mr-1`} onClick={() => voteHelpful(data.review_id)} aria-hidden="true">{`Yes(${data !== undefined ? data.helpfulness : ''})`}</span>
+        <button type="button" className={`${style.helpLink} mr-1`} onClick={() => voteAndUpdate(data.review_id)} aria-hidden="true">{`Yes(${data !== undefined ? data.helpfulness : ''})`}</button>
         |
         <span className="ml-1">Report</span>
       </Row>
@@ -137,6 +139,9 @@ Review.propTypes = {
       url: PropTypes.string,
     })),
   }),
+  param: PropTypes.number.isRequired,
+  setData: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
 };
 
 Review.defaultProps = {

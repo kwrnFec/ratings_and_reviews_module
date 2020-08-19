@@ -33,31 +33,38 @@ const App = () => {
   const [meta, setMeta] = useState(null);
   const [renderCount, setRenderCount] = useState(2);
   const [show, setShow] = useState(false);
-  const [newReview, setNewReview] = useState({});
+  const [reviews, setReviews] = useState([]);
   const param = 20;
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // Creates the list of review tiles to be rendered
+  const renderReviews = () => {
+    const reviewsList = [];
+
+    for (let i = 0; i < renderCount; i += 1) {
+      if (data[i] !== undefined) {
+        reviewsList.push(
+          <Review
+            data={data[i]}
+            key={data[i].review_id}
+            setData={setData}
+            param={param}
+            getData={getData}
+          />,
+        );
+      }
+    }
+    return reviewsList;
+  };
 
   // Api call to get data
   useEffect(() => {
     getData(param, setData);
     getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
-    // Wacky loop because data passed in, no current work around
-    console.log('effect runs');
   }, []);
-
-  // Creates the list of review tiles to be rendered
-  const renderReviews = () => {
-    const reviews = [];
-
-    for (let i = 0; i < renderCount; i += 1) {
-      if (data[i] !== undefined) {
-        reviews.push(<Review data={data[i]} key={data[i].review_id} />);
-      }
-    }
-    return reviews;
-  };
 
   // Gets 2 more reviews when button is clicked
   const getMoreReviews = () => {
@@ -79,18 +86,28 @@ const App = () => {
   const createModalFormRadios = () => {
     const features = meta !== null ? Object.keys(meta) : null;
     const result = [];
+    const radios = [];
+
+    for (let i = 0; i < 5; i += 1) {
+      radios.push(<input type="radio" className="mr-1" key={i} value={i + 1} onChange={(e) => console.log(e.target.value)} />);
+    }
 
     if (features !== null) {
       for (let i = 0; i < features.length; i += 1) {
         result.push(
-          <Row key={`${features[i]}-rating`}>
-            <span className="mr-2">{features !== null ? features[i] : ''}</span>
-            <Rating name={`${features[i]}-star`} onChange={(event) => console.log(event.target.value)} />
+          <Row key={`${features[i]}-rating`} className={`${style.radioRows} mb-1 justify-content-center`}>
+            <Col xs={2} className="d-flex justify-content-end pr-0">
+              <span>{features !== null ? `${features[i]}:` : ''}</span>
+            </Col>
+            <Col xs={6}>
+              <span className={`${style.spanFont} mr-1`}>Poor</span>
+              {radios}
+              <span className={`${style.spanFont} ml-1`}>Great</span>
+            </Col>
           </Row>,
         );
       }
     }
-    // console.log(features);
     return result;
   };
 
@@ -109,12 +126,24 @@ const App = () => {
               <Modal.Title>Add A Review</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
+              <form>
                 <Container>
+                  <Row className="justify-content-center">
+                    <span>Overall Rating: </span>
+                    <Rating name="overall-rating" />
+                  </Row>
+                  <Row className="justify-content-center">
+                    <Col xs={4} className="mb-1">
+                      <span className="mr-1">Yes:</span>
+                      <input type="radio" className="mr-2" />
+                      <span className="mr-1">No:</span>
+                      <input type="radio" />
+                    </Col>
+                  </Row>
                   {createModalFormRadios()}
                 </Container>
                 <Form.Control as="textarea" rows="3" placeholder="Write a review here..." />
-              </Form>
+              </form>
             </Modal.Body>
           </Modal>
         </Col>
