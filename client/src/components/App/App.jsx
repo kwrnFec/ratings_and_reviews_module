@@ -33,8 +33,20 @@ const App = () => {
   const [meta, setMeta] = useState(null);
   const [renderCount, setRenderCount] = useState(2);
   const [show, setShow] = useState(false);
-  const [reviews, setReviews] = useState([]);
-  const param = 20;
+  const [newReview, setNewReview] = useState({
+    product_id: null,
+    rating: null,
+    summary: null,
+    body: null,
+    recommend: null,
+    name: null,
+    email: null,
+    photos: null,
+    characteristics: null,
+  });
+  // const [reviews, setReviews] = useState([]);
+  const param = 24;
+  // use 2, 18, 24 for demo
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -130,14 +142,14 @@ const App = () => {
                 <Container>
                   <Row className="justify-content-center">
                     <span>Overall Rating: </span>
-                    <Rating name="overall-rating" />
+                    <Rating name="overall-rating" onChange={(e) => console.log(e.target.value)} />
                   </Row>
                   <Row className="justify-content-center">
                     <Col xs={4} className="mb-1">
                       <span className="mr-1">Yes:</span>
-                      <input type="radio" className="mr-2" />
+                      <input type="radio" className="mr-2" value="yes" onChange={(e) => console.log(e.target.value)} />
                       <span className="mr-1">No:</span>
-                      <input type="radio" />
+                      <input type="radio" value="no" onChange={(e) => console.log(e.target.value)} />
                     </Col>
                   </Row>
                   {createModalFormRadios()}
