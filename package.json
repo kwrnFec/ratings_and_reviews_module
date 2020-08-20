@@ -6,6 +6,7 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/server.js",
+    "server": "node server/server.js",
     "test": "jest --coverage"
   },
   "keywords": [],
