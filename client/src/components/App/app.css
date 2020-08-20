@@ -1,11 +1,20 @@
 .container {
-  /* border: 1px solid blue; */
   max-height: 100vh !important;
   overflow-y: scroll;
 }
 
-/* .ratingPlaceholder {
-  border: 1px solid green;
-  height: 231px;
-  margin: 50px auto 50px;
+ /* .formContainer {
+  display: grid;
+  grid
+}  */
+
+/* .spanFont {
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+} */
+
+/* .radioRows {
+  display: flex;
+  justify-items: center;
 } */

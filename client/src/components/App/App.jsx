@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Container, Row, Col, Button, Modal, Form, InputGroup, ToggleButton } from 'react-bootstrap';
+import Rating from '@material-ui/lab/Rating';
 import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
@@ -32,30 +33,50 @@ const App = () => {
   const [meta, setMeta] = useState(null);
   const [renderCount, setRenderCount] = useState(2);
   const [show, setShow] = useState(false);
-  const [newReview, setNewReview] = useState({});
-  const param = 20;
+  const [newReview, setNewReview] = useState({
+    product_id: null,
+    rating: null,
+    summary: null,
+    body: null,
+    recommend: null,
+    name: null,
+    email: null,
+    photos: null,
+    characteristics: null,
+  });
+  // const [reviews, setReviews] = useState([]);
+  const param = 24;
+  // use 2, 18, 24 for demo
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // Creates the list of review tiles to be rendered
+  const renderReviews = () => {
+    const reviewsList = [];
+
+    for (let i = 0; i < renderCount; i += 1) {
+      if (data[i] !== undefined) {
+        reviewsList.push(
+          <Review
+            data={data[i]}
+            key={data[i].review_id}
+            setData={setData}
+            param={param}
+            getData={getData}
+          />,
+        );
+      }
+    }
+    return reviewsList;
+  };
 
   // Api call to get data
   useEffect(() => {
     getData(param, setData);
     getMeta(param, setMeta);
     // [] argument below ensures this only occurs on mount not on update
-    // Wacky loop because data passed in, no current work around
-  }, [data]);
-
-  // Creates the list of review tiles to be rendered
-  const renderReviews = () => {
-    const reviews = [];
-
-    for (let i = 0; i < renderCount; i += 1) {
-      if (data[i] !== undefined) {
-        reviews.push(<Review data={data[i]} key={data[i].review_id} />);
-      }
-    }
-    return reviews;
-  };
+  }, []);
 
   // Gets 2 more reviews when button is clicked
   const getMoreReviews = () => {
@@ -74,17 +95,33 @@ const App = () => {
     return <Button id="moreReviews" className="mr-3 mt-4" variant="outline-dark" onClick={getMoreReviews}>More Reviews</Button>;
   };
 
-  // const createModalFormRadios = () => {
-  //   const result = [];
-  //   for (let i = 1; i <= 5; i += 1) {
-  //     result.push(
-  //       // <InputGroup.Prepend>
-  //         <Form.Check label={`${i}`} value={`${i}`} type='radio' />,
-  //       // </InputGroup.Prepend>,
-  //     );
-  //   }
-  //   return result;
-  // };
+  const createModalFormRadios = () => {
+    const features = meta !== null ? Object.keys(meta) : null;
+    const result = [];
+    const radios = [];
+
+    for (let i = 0; i < 5; i += 1) {
+      radios.push(<input type="radio" className="mr-1" key={i} value={i + 1} onChange={(e) => console.log(e.target.value)} />);
+    }
+
+    if (features !== null) {
+      for (let i = 0; i < features.length; i += 1) {
+        result.push(
+          <Row key={`${features[i]}-rating`} className={`${style.radioRows} mb-1 justify-content-center`}>
+            <Col xs={2} className="d-flex justify-content-end pr-0">
+              <span>{features !== null ? `${features[i]}:` : ''}</span>
+            </Col>
+            <Col xs={6}>
+              <span className={`${style.spanFont} mr-1`}>Poor</span>
+              {radios}
+              <span className={`${style.spanFont} ml-1`}>Great</span>
+            </Col>
+          </Row>,
+        );
+      }
+    }
+    return result;
+  };
 
   return (
     <Container>
@@ -101,11 +138,24 @@ const App = () => {
               <Modal.Title>Add A Review</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
-                <InputGroup>
-                  {/* {createModalFormRadios()} */}
-                </InputGroup>
-              </Form>
+              <form>
+                <Container>
+                  <Row className="justify-content-center">
+                    <span>Overall Rating: </span>
+                    <Rating name="overall-rating" onChange={(e) => console.log(e.target.value)} />
+                  </Row>
+                  <Row className="justify-content-center">
+                    <Col xs={4} className="mb-1">
+                      <span className="mr-1">Yes:</span>
+                      <input type="radio" className="mr-2" value="yes" onChange={(e) => console.log(e.target.value)} />
+                      <span className="mr-1">No:</span>
+                      <input type="radio" value="no" onChange={(e) => console.log(e.target.value)} />
+                    </Col>
+                  </Row>
+                  {createModalFormRadios()}
+                </Container>
+                <Form.Control as="textarea" rows="3" placeholder="Write a review here..." />
+              </form>
             </Modal.Body>
           </Modal>
         </Col>
