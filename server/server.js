@@ -12,10 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/rrmodule', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../public/bundle.js`));
-});
-
 app.get('/reviews/:product_id/list', (req, res) => {
   axios.get(`${url}/reviews/${req.params.product_id}/list`, {
     params: {
@@ -49,6 +45,10 @@ app.put('/reviews/helpful/:review_id', (req, res) => {
     .catch((error) => {
       res.send('Error has occured: ', error);
     });
+});
+
+app.get('/rrmodule', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../public/bundle.js`));
 });
 
 app.listen(port, () => {
