@@ -7,6 +7,8 @@ import Rating from '@material-ui/lab/Rating';
 import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
+// const url = 'http://52.26.193.201:3000';
+
 // COMPONENTS
 import Review from '../Review/Review.jsx';
 import Summary from '../Summary/Summary.jsx';
