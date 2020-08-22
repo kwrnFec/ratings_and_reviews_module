@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const path = require('path');
 
+// const prefix = '/rrmodule';
+
 const port = 3000;
 const url = 'http://52.26.193.201:3000';
 
@@ -12,7 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/reviews/:product_id/list', (req, res) => {
+app.get('/rrmodule', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../public/bundle.js`));
+});
+
+app.get('/rrmodule/reviews/:product_id/list', (req, res) => {
   axios.get(`${url}/reviews/${req.params.product_id}/list`, {
     params: {
       count: 20,
@@ -27,7 +33,7 @@ app.get('/reviews/:product_id/list', (req, res) => {
     });
 });
 
-app.get('/reviews/:product_id/meta', (req, res) => {
+app.get('/rrmodule/reviews/:product_id/meta', (req, res) => {
   axios.get(`${url}/reviews/${req.params.product_id}/meta`)
     .then((response) => {
       res.send(response.data);
@@ -37,7 +43,7 @@ app.get('/reviews/:product_id/meta', (req, res) => {
     });
 });
 
-app.put('/reviews/helpful/:review_id', (req, res) => {
+app.put('/rrmodule/reviews/helpful/:review_id', (req, res) => {
   axios.put(`${url}/reviews/helpful/${req.params.review_id}`)
     .then(() => {
       res.send();
@@ -45,10 +51,6 @@ app.put('/reviews/helpful/:review_id', (req, res) => {
     .catch((error) => {
       res.send('Error has occured: ', error);
     });
-});
-
-app.get('/rrmodule', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../public/bundle.js`));
 });
 
 app.listen(port, () => {

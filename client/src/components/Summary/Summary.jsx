@@ -31,7 +31,7 @@ const Summary = (props) => {
     <Container className={style.ratingContainer}>
       <Row>
         <Col>
-          <h2>RATINGS & REVIEWS</h2>
+          <h2 className={`${style.summaryh2}`}>RATINGS & REVIEWS</h2>
         </Col>
       </Row>
       <Row>

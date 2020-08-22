@@ -16,7 +16,7 @@ import style from './app.css';
 
 const getData = async (param, fn) => {
   // Get review data
-  axios.get(`/reviews/${param}/list`)
+  axios.get(`/rrmodule/reviews/${param}/list`)
     .then((response) => {
       fn(response.data.results);
     });
@@ -24,7 +24,7 @@ const getData = async (param, fn) => {
 
 const getMeta = async (param, fn) => {
   // Get meta data
-  axios.get(`/reviews/${param}/meta`)
+  axios.get(`/rrmodule/reviews/${param}/meta`)
     .then((response) => {
       fn(response.data.characteristics);
     });
@@ -47,7 +47,7 @@ const App = () => {
     characteristics: null,
   });
   // const [reviews, setReviews] = useState([]);
-  const param = 24;
+  const param = 18;
   // use 2, 18, 24 for demo
 
   const handleClose = () => setShow(false);

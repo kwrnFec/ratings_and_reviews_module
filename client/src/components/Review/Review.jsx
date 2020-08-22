@@ -78,7 +78,7 @@ const Review = (props) => {
   }, [data]);
 
   const voteAndUpdate = (id) => {
-    axios.put(`/reviews/helpful/${id}`)
+    axios.put(`rrmodule/reviews/helpful/${id}`)
       .then(() => {
         getData(param, setData);
       });
