@@ -1,6 +1,12 @@
 .container {
-  max-height: 100vh !important;
-  overflow-y: scroll;
+  padding-bottom: 50px;
+}
+
+@media(min-width: 850px) {
+  .container {
+    max-height: 100vh !important;
+    overflow-y: scroll;
+  }
 }
 
  /* .formContainer {

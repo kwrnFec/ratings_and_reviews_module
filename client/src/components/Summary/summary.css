@@ -2,9 +2,9 @@
   margin: 25px auto 50px;
 }
 
-h2 {
-  font-size: 1rem;
-  font-weight: 300;
+.summaryh2 {
+  font-size: 1rem !important;
+  font-weight: 300 !important;
 }
 
 .rating {

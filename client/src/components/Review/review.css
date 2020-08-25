@@ -55,21 +55,21 @@ span a {
 }
 
 .helpLink {
-  color: black;
+  color: black !important;
   background: none!important;
-  border: none;
+  border: none !important;
   padding: 0!important;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .helpLink:focus {
-  outline: none;
+  outline: none !important;
 }
 
 .helpLink:hover,
 .seeMore:hover {
-  color: black;
-  text-decoration: underline;
+  color: black !important;
+  text-decoration: underline !important;
 }
 
 .spanFont {

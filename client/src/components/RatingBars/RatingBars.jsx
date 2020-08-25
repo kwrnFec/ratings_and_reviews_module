@@ -59,7 +59,7 @@ const createRatingBars = (data) => {
         <Col xs={3}>
           <span className={style.spanFont}>{`${i} Stars`}</span>
         </Col>
-        <Col xs={8} className={style.outerBar}>
+        <Col xs={8} className={`${style.outerBar} p-0`}>
           <div className={style.innerBar} style={{ width: `${rating}%`, transition: '2s' }} />
         </Col>
       </Row>,
