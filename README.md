@@ -29,16 +29,34 @@ a proxy server hosted on Amazon Web Services.
 
 ## Technologies Used
 
+ - JavaScript
+ - React
+ - Bootstrap
+ - CSS Modules
+ - Express
+ - Node.js
+ - Jest
+ - Enzyme
+ - Docker
+ - Amazon Web Services
+ - CircleCI
+
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
-- Node 6.13.0
-- etc
+- Node 6.13.0 or greater
+- npm
 
 ## Development
 
 ### Installing Dependencies
+
+> The following commands will install the application dependencies, run webpack to compile the application and start the development server
+
+    npm install
+    npm run react-dev
+    npm run start
 
 From within the root directory:
 
