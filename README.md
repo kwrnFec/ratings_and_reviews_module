@@ -25,7 +25,7 @@ a proxy server hosted on Amazon Web Services.
 
 ![Alt Text](https://i.imgur.com/JSZvGR9.gif)
 
-> A demonstration of all microservices rendered to the proxy server can be seen here https://youtu.be/3BBFQ9nNj08
+<!-- A demonstration of all microservices rendered to the proxy server can be seen here https://youtu.be/3BBFQ9nNj08 -->
 
 ## Technologies Used
 
